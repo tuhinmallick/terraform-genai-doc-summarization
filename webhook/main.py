@@ -62,8 +62,7 @@ def redirect_and_reply(previous_data):
         'bucket': previous_data["bucket"],
         'timeCreated': previous_data["timeCreated"],
     }
-    headers = {}
-    headers["Authorization"] = f"Bearer {id_token}"
+    headers = {"Authorization": f"Bearer {id_token}"}
     logger.log(f'TRIGGERING JOB FLOW: {endpoint}')
     try:
         requests.post(
@@ -138,7 +137,7 @@ def summarization_entrypoint(
     logging_client = logging.Client()
     logger = logging_client.logger(_FUNCTIONS_VERTEX_EVENT_LOGGER)
 
-    if len(extracted_text) == 0:
+    if not extracted_text:
         logger.log(f"""cloud_event_id({event_id}): BAD INPUT
 No characters recognized from PDF and so the PDF cannot be
 summarized. Be sure to upload a high-quality PDF that contains 'Abstract' and
