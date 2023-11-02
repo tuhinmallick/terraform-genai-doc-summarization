@@ -39,8 +39,7 @@ def coerce_datetime_zulu(input_datetime: datetime.datetime):
 
     """
     regex = re.compile(r"(.*)(Z$)")
-    regex_match = regex.search(input_datetime)
-    if regex_match:
+    if regex_match := regex.search(input_datetime):
         assert input_datetime.startswith(regex_match.group(1))
         assert input_datetime.endswith(regex_match.group(2))
         return datetime.datetime.fromisoformat(f"{input_datetime[:-1]}+00:00")
